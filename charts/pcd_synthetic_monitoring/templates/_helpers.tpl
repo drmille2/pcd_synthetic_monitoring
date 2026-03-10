@@ -30,7 +30,7 @@ Create config map and secret names
 {{- if .Values.monitorConfigNameOverride }}
 {{- .Values.monitorConfigNameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- default .Chart.Name }}
+{{- default (include "pcd-synthetic.fullname" .) "-monitor-config" }}
 {{- end }}
 {{- end }}
 
@@ -38,7 +38,7 @@ Create config map and secret names
 {{- if .Values.postgresConfigNameOverride}}
 {{- .Values.postgresConfigNameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- default .Chart.Name }}
+{{- default (include "pcd-synthetic.fullname" .) "-pg-config" }}
 {{- end }}
 {{- end }}
 
@@ -46,7 +46,7 @@ Create config map and secret names
 {{- if .Values.pcdEnvSecretNameOverride}}
 {{- .Values.pcdEnvSecretNameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- default .Chart.Name }}
+{{- default (include "pcd-synthetic.fullname" .) "-secret" }}
 {{- end }}
 {{- end }}
 {{/*
