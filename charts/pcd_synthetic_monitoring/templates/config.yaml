@@ -1,3 +1,6 @@
+kind: ConfigMap
+metadata:
+  name: {{ include "pcd-synthetic.fullname" . }}
 apiVersion: v1
 data:
   00-monitors.toml: |+
@@ -135,7 +138,3 @@ data:
     name = "error"
     reporters = ["postgresql"]
 
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: {{ include "pcd-synthetic.monitor-config-name" . }}
