@@ -31,7 +31,7 @@ Create config map and secret names
 {{- end }}
 
 {{- define "pcd-synthetic.postgresConfigName" -}}
-{{- default (include "pcd-synthetic.fullname" .) .Values.postgresConfigNameOverride }}
+{{- default "pcd-synthetic-postgres" .Values.postgresConfigNameOverride }}
 {{- end }}
 
 {{- define "pcd-synthetic.pcdEnvSecretName" -}}
