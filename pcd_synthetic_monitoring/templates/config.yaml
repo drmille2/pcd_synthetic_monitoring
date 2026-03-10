@@ -1,0 +1,141 @@
+apiVersion: v1
+data:
+  00-monitors.toml: |+
+    use_db_persistence = false
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: nova
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "nova"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: neutron
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "neutron"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: cinder
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "cinder"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: glance
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "glance"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: placement
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "placement"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+    [[monitor]]
+    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: resmgr
+    interval = 120
+
+    [monitor.target]
+    path = "/home/synth/scripts/openstack.sh"
+    args = ["-s", "resmgr"]
+
+    [[monitor.level]]
+    name = "info"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "warn"
+    errors_to_escalate = 1
+    reporters = ["postgresql"]
+
+    [[monitor.level]]
+    name = "error"
+    reporters = ["postgresql"]
+
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ include "pcd-synthetic.monitor-config-name" . }}
