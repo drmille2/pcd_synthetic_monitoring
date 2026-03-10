@@ -27,28 +27,17 @@ If release name contains chart name it will be used as a full name.
 Create config map and secret names
 */}}
 {{- define "pcd-synthetic.monitorConfigName" -}}
-{{- if .Values.monitorConfigNameOverride }}
-{{- .Values.monitorConfigNameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- default (include "pcd-synthetic.fullname" .) "-monitor-config" }}
-{{- end }}
+{{- default (include "pcd-synthetic.fullname" .) .Values.monitorConfigNameOverride }}
 {{- end }}
 
 {{- define "pcd-synthetic.postgresConfigName" -}}
-{{- if .Values.postgresConfigNameOverride}}
-{{- .Values.postgresConfigNameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- default (include "pcd-synthetic.fullname" .) "-pg-config" }}
-{{- end }}
+{{- default (include "pcd-synthetic.fullname" .) .Values.postgresConfigNameOverride }}
 {{- end }}
 
 {{- define "pcd-synthetic.pcdEnvSecretName" -}}
-{{- if .Values.pcdEnvSecretNameOverride}}
-{{- .Values.pcdEnvSecretNameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- default (include "pcd-synthetic.fullname" .) "-secret" }}
+{{- default (include "pcd-synthetic.fullname" .) .Values.pcdEnvSecretNameOverride }}
 {{- end }}
-{{- end }}
+
 {{/*
 Create chart name and version as used by the chart label.
 */}}

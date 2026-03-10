@@ -1,13 +1,13 @@
 kind: ConfigMap
 metadata:
-  name: {{ include "pcd-synthetic.fullname" . }}
+  name: {{ include "pcd-synthetic.monitorConfigName" . }}
 apiVersion: v1
 data:
   00-monitors.toml: |+
     use_db_persistence = false
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: nova
+    name = {{ .Release.Name }} :: openstack :: nova
     interval = 120
 
     [monitor.target]
@@ -29,7 +29,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: neutron
+    name = {{ .Release.Name }} :: openstack :: neutron
     interval = 120
 
     [monitor.target]
@@ -51,7 +51,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: cinder
+    name = {{ .Release.Name }} :: openstack :: cinder
     interval = 120
 
     [monitor.target]
@@ -73,7 +73,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: glance
+    name = {{ .Release.Name }} :: openstack :: glance
     interval = 120
 
     [monitor.target]
