@@ -55,7 +55,7 @@ spec:
             subPath: "00-output.toml"
             readOnly: true
       volumes:
-      - name: output-config
+      - name: monitor-config
         configMap:
           name: {{ include "pcd-synthetic.monitorConfigName" . }}
           optional: false
