@@ -5,9 +5,10 @@ apiVersion: v1
 data:
   00-monitors.toml: |+
     use_db_persistence = false
+    log_level = "debug"
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: nova
+    name = "{{ .Release.Name }} :: pcd :: nova"
     interval = 120
 
     [monitor.target]
@@ -29,7 +30,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: neutron
+    name = "{{ .Release.Name }} :: pcd :: neutron"
     interval = 120
 
     [monitor.target]
@@ -51,7 +52,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: cinder
+    name = "{{ .Release.Name }} :: pcd :: cinder"
     interval = 120
 
     [monitor.target]
@@ -73,7 +74,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: glance
+    name = "{{ .Release.Name }} :: pcd :: glance"
     interval = 120
 
     [monitor.target]
@@ -95,7 +96,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: placement
+    name = "{{ .Release.Name }} :: pcd :: placement"
     interval = 120
 
     [monitor.target]
@@ -117,7 +118,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ .Release.Name }} :: pcd :: resmgr
+    name = "{{ .Release.Name }} :: pcd :: resmgr"
     interval = 120
 
     [monitor.target]
