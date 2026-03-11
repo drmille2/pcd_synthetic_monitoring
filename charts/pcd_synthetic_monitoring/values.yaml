@@ -21,7 +21,7 @@ fullnameOverride: ""
 
 # This is to override config-map and secret names
 monitorConfigNameOverride: "" 
-postgresConfigNameOverride: ""
+outputConfigNameOverride: ""
 pcdEnvSecretNameOverride: ""
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/

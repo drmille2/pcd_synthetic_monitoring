@@ -95,7 +95,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: placement
+    name = {{ .Release.Name }} :: openstack :: placement
     interval = 120
 
     [monitor.target]
@@ -117,7 +117,7 @@ data:
     reporters = ["postgresql"]
 
     [[monitor]]
-    name = {{ include "pcd-synthetic.fullname" . }} :: openstack :: resmgr
+    name = {{ .Release.Name }} :: openstack :: resmgr
     interval = 120
 
     [monitor.target]

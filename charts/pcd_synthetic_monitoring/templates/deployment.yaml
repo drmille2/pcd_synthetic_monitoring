@@ -46,22 +46,22 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-          - name: synth-config
+          - name: monitor-config
             mountPath: "/home/synth/conf/00-monitors.toml"
             subPath: "00-monitors.toml"
             readOnly: true
-          - name: postgres-config
-            mountPath: "/home/synth/conf/00-postgresql.toml"
-            subPath: "00-postgresql.toml"
+          - name: output-config
+            mountPath: "/home/synth/conf/00-output.toml"
+            subPath: "00-output.toml"
             readOnly: true
       volumes:
-      - name: synth-config
+      - name: output-config
         configMap:
           name: {{ include "pcd-synthetic.monitorConfigName" . }}
           optional: false
-      - name: postgres-config
+      - name: output-config
         secret:
-          secretName: {{ include "pcd-synthetic.postgresConfigName" . }}
+          secretName: {{ include "pcd-synthetic.outputConfigName" . }}
           optional: false
       {{- with .Values.nodeSelector }}
       nodeSelector:
