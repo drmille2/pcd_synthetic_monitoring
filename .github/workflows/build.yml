@@ -1,0 +1,28 @@
+name: Build and Push Container Image
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Use Podman Build and Push Action
+        uses: Frozen-Tapestry/container-action@v1
+        with:
+          login_registry: ghcr.io
+          login_username: ${{ secrets.REGISTRY_USERNAME }}
+          login_password: ${{ secrets.REGISTRY_PASSWORD }}
+          tags: ghcr.io/drmille2/pcd-synthetics:${{ github.ref_name }}
+          dockerfile: ./Containerfile
+          # Use those security flags if using GitHub Action. Keep the defaults, if using Gitea.
+          security: |
+            --security-opt=seccomp=unconfined
+            --security-opt=apparmor=unconfined
+          push: true

@@ -57,7 +57,7 @@ kubectl create secret generic mydu-pcd-synthetic --from-env-file=openstack.rc -n
 helm repo add pcd-synth https://drmille2.github.io/pcd_synthetic_monitoring
 helm repo update
 
-helm install my-du pcd-synth/pcd-synthetic -n=monitoring
+helm install mydu pcd-synth/pcd-synthetic -n=monitoring
 ```
   
 If you did not use the default resource names for the output configuiration and openstack rc secrets, you can use helm chart overrides to provide the correct names (`outputConfigNameOverride` and `pcdEnvSecretNameOverride`).
