@@ -2,8 +2,18 @@ apiVersion: v1
 entries:
   pcd-synthetic:
   - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2026-03-12T17:40:27.429949029Z"
+    description: Synthetic monitors for Private Cloud Director
+    digest: 7ecf8d8ea4c456e5648fcdd9b89eac42ba731c5393cb94630e34757e1d3bcd9e
+    name: pcd-synthetic
+    type: application
+    urls:
+    - https://drmille2.github.io/pcd_synthetic_monitoring/packages/pcd-synthetic-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-03-11T09:53:20.726936475-07:00"
+    created: "2026-03-12T17:40:27.429689683Z"
     description: Synthetic monitors for Private Cloud Director
     digest: 31583f61bb377600b834940970272595ed4c4f433d9fd8c4f3d618cbc9d38448
     name: pcd-synthetic
@@ -13,7 +23,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-03-11T09:53:20.726559257-07:00"
+    created: "2026-03-12T17:40:27.429400969Z"
     description: Synthetic monitors for Private Cloud Director
     digest: 0e3d9b3409b8d116f0deb60a51b82d8fcee3868e5217e881bfd0cfcc426e0a9f
     name: pcd-synthetic
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://drmille2.github.io/pcd_synthetic_monitoring/packages/pcd-synthetic-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-11T09:53:20.726043534-07:00"
+generated: "2026-03-12T17:40:27.428976506Z"
