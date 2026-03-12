@@ -6,23 +6,21 @@ on:
       - v[0-9]+.*
 
 jobs:
-  build-push:
-    runs-on: ubuntu-latest
+      push-store-image:
+        runs-on: ubuntu-latest
+        steps:
+          - name: 'Checkout GitHub Action'
+            uses: actions/checkout@main
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v5
+          - name: 'Login to GitHub Container Registry'
+            uses: docker/login-action@v1
+            with:
+              registry: ghcr.io
+              username: ${{github.actor}}
+              password: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Use Podman Build and Push Action
-        uses: Frozen-Tapestry/container-action@v1
-        with:
-          login_registry: ghcr.io
-          login_username: ${{ secrets.REGISTRY_USERNAME }}
-          login_password: ${{ secrets.REGISTRY_PASSWORD }}
-          tags: ghcr.io/drmille2/pcd-synthetics:${{ github.ref_name }}
-          dockerfile: ./Containerfile
-          # Use those security flags if using GitHub Action. Keep the defaults, if using Gitea.
-          security: |
-            --security-opt=seccomp=unconfined
-            --security-opt=apparmor=unconfined
-          push: true
+          - name: 'Build Inventory Image'
+            run: |
+              docker build -f Containerfile . --tag ghcr.io/drmille2/pcd-synthetics:${{ github.ref_name }}
+              docker push ghcr.io/drmille2/pcd-synthetics:${{ github.ref_name }}
+
