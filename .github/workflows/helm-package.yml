@@ -6,8 +6,7 @@ on:
       - 'v[0-9]+.*'
 
 env:
-  # CHANGE THIS to the path where your chart is located in your repo
-  CHART_DIR: './charts' 
+  CHART_DIR: './charts/pcd_synthetic_monitoring/' 
 
 jobs:
   package-and-publish:
