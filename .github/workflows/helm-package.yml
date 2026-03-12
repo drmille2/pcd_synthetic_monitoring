@@ -1,0 +1,76 @@
+name: Package and Publish Helm Chart
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.*'
+
+env:
+  # CHANGE THIS to the path where your chart is located in your repo
+  CHART_DIR: './charts' 
+
+jobs:
+  package-and-publish:
+    runs-on: ubuntu-latest
+    
+    # Required to commit the new package and index.yaml back to the repo
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0 # You can pin this to your preferred version
+
+      - name: Extract and format version
+        id: version
+        run: |
+          # Get the tag name (e.g., v1.2.3)
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          
+          # Helm requires strict SemVer (1.2.3 instead of v1.2.3)
+          # This strips the leading 'v'
+          VERSION=${TAG_NAME#v}
+          
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Packaging chart version: $VERSION"
+
+      - name: Package Helm Chart
+        run: |
+          mkdir -p .cr-release-packages
+          # The --version and --app-version flags override what is in your Chart.yaml
+          helm package ${{ env.CHART_DIR }} \
+            --version ${{ env.VERSION }} \
+            --app-version ${{ env.VERSION }} \
+            --destination packages
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-branch
+
+      - name: Reindex and Push
+        run: |
+          # Copy the newly packaged chart to the gh-pages branch
+          cp -r packages/ gh-pages-branch/
+          cd gh-pages-branch
+          
+          # Generate/Update index.yaml based on the new chart
+          # The --url flag points to your GitHub Pages URL
+          helm repo index . --url https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          
+          # Configure Git as the GitHub Actions bot
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Commit and push the new .tgz and updated index.yaml
+          git add .
+          git commit -m "Publish Helm chart ${{ env.VERSION }}"
+          git push origin gh-pages
