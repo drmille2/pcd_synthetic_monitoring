@@ -10,7 +10,7 @@ ENV HOME /home/synth
 RUN mkdir -p /home/synth/conf && mkdir -p /home/synth/scripts
 WORKDIR /home/synth
 
-RUN curl -k -L https://github.com/drmille2/synthehol/releases/download/v0.2.0/synthehol-x86_64-unknown-linux-gnu.tar.gz -o synthehol.tgz && tar -xzvf synthehol.tgz
+RUN curl -k -L https://github.com/drmille2/synthehol/releases/download//v0.2.1-pre-20260515/synthehol-x86_64-unknown-linux-gnu.tar.gz -o synthehol.tgz && tar -xzvf synthehol.tgz
 COPY scripts/* /home/synth/scripts/
 
 VOLUME ["/home/synth/conf"]
