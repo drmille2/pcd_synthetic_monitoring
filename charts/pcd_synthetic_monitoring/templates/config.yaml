@@ -119,13 +119,14 @@ data:
     reporters = ["postgresql"]
     {{ end }}
 
+    {{ if not .Values.readOnlyUser }}
     [[monitor]]
     name = "{{ .Release.Name }} :: pcd :: resmgr"
     interval = 120
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "resmgr" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
+    args = ["-s", "resmgr"]
 
     [[monitor.level]]
     name = "info"
@@ -140,4 +141,4 @@ data:
     [[monitor.level]]
     name = "error"
     reporters = ["postgresql"]
-
+    {{ end }}
