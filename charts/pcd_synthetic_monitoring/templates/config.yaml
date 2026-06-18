@@ -94,7 +94,8 @@ data:
     [[monitor.level]]
     name = "error"
     reporters = ["postgresql"]
-    {{- if not .Values.readOnlyUser -}}
+    {{ if not .Values.readOnlyUser }}
+
     [[monitor]]
     name = "{{ .Release.Name }} :: pcd :: placement"
     interval = 120
@@ -116,7 +117,8 @@ data:
     [[monitor.level]]
     name = "error"
     reporters = ["postgresql"]
-    {{- end }}
+    {{ end }}
+
     [[monitor]]
     name = "{{ .Release.Name }} :: pcd :: resmgr"
     interval = 120
