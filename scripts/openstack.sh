@@ -8,7 +8,7 @@ function usage() {
 }
 
 ARGS=""
-while getopts "s:t:n:m:c:y:a:" opt; do
+while getopts "s:t:n:m:c:y:a:r" opt; do
   case $opt in
   s)
     SERVICE="$OPTARG"
@@ -30,6 +30,9 @@ while getopts "s:t:n:m:c:y:a:" opt; do
     ;;
   a)
     AGENT=" -n $OPTARG"
+    ;;
+  r)
+    READONLY=1
     ;;
   esac
 done
@@ -64,10 +67,12 @@ case ${SERVICE,,} in
             rc=1
         fi
 
-        nova_list_services $SVC
-        if [ $? -ne 0 ]; then
-            echo "nova_list_services failed"
-            rc=1
+        if [ $READONLY -ne 1 ]; then
+            nova_list_services $SVC
+            if [ $? -ne 0 ]; then
+                echo "nova_list_services failed"
+                rc=1
+            fi
         fi
     ;;
 
@@ -84,10 +89,12 @@ case ${SERVICE,,} in
             rc=1
         fi
 
-        neutron_list_agents $AGENT
-        if [ $? -ne 0 ]; then
-            echo "neutron_list_agents failed"
-            rc=1
+        if [ $READONLY -ne 1 ]; then
+            neutron_list_agents $AGENT
+            if [ $? -ne 0 ]; then
+                echo "neutron_list_agents failed"
+                rc=1
+            fi
         fi
     ;;
 
@@ -104,10 +111,12 @@ case ${SERVICE,,} in
             rc=1
         fi
 
-        cinder_list_services $SVC
-        if [ $? -ne 0 ]; then
-            echo "cinder_list_services failed"
-            rc=1
+        if [ $READONLY -ne 1 ]; then
+            cinder_list_services $SVC
+            if [ $? -ne 0 ]; then
+                echo "cinder_list_services failed"
+                rc=1
+            fi
         fi
     ;;
 
@@ -126,16 +135,18 @@ case ${SERVICE,,} in
     ;;
 
     "placement")
-        keystone_get_token
-        if [ $? -ne 0 ]; then
-            echo "keystone_get_token failed"
-            exit 1;
-        fi
+        if [ $READONLY -ne 1 ]; then
+            keystone_get_token
+            if [ $? -ne 0 ]; then
+                echo "keystone_get_token failed"
+                exit 1;
+            fi
 
-        placement_list_providers $NUM
-        if [ $? -ne 0 ]; then
-            echo "placement_list_providers failed"
-            rc=1
+            placement_list_providers $NUM
+            if [ $? -ne 0 ]; then
+                echo "placement_list_providers failed"
+                rc=1
+            fi
         fi
     ;;
 
