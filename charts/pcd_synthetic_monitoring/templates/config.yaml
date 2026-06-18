@@ -13,7 +13,7 @@ data:
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "nova"]
+    args = ["-s", "nova" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
 
     [[monitor.level]]
     name = "info"
@@ -35,7 +35,7 @@ data:
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "neutron"]
+    args = ["-s", "neutron" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
 
     [[monitor.level]]
     name = "info"
@@ -57,7 +57,7 @@ data:
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "cinder"]
+    args = ["-s", "cinder" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
 
     [[monitor.level]]
     name = "info"
@@ -79,7 +79,7 @@ data:
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "glance"]
+    args = ["-s", "glance" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
 
     [[monitor.level]]
     name = "info"
@@ -94,7 +94,7 @@ data:
     [[monitor.level]]
     name = "error"
     reporters = ["postgresql"]
-
+    {{- if not .Values.readOnlyUser -}}
     [[monitor]]
     name = "{{ .Release.Name }} :: pcd :: placement"
     interval = 120
@@ -116,14 +116,14 @@ data:
     [[monitor.level]]
     name = "error"
     reporters = ["postgresql"]
-
+    {{- end }}
     [[monitor]]
     name = "{{ .Release.Name }} :: pcd :: resmgr"
     interval = 120
 
     [monitor.target]
     path = "/home/synth/scripts/openstack.sh"
-    args = ["-s", "resmgr"]
+    args = ["-s", "resmgr" {{- if .Values.readOnlyUser -}},"-r"{{- end }}]
 
     [[monitor.level]]
     name = "info"

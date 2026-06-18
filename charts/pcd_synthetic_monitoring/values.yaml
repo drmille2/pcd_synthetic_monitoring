@@ -24,6 +24,9 @@ monitorConfigNameOverride: ""
 outputConfigNameOverride: ""
 pcdEnvSecretNameOverride: ""
 
+# set this true if deploying using read-only credentials, will restrict what endpoints are monitored
+readOnlyUser: false
+
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # Specifies whether a service account should be created
